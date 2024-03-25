@@ -1,0 +1,59 @@
+import cv2
+
+image = cv2.imread(r"logo_msize_wbg.png")
+
+(b, g, r) = cv2.split(image)
+
+print(image.shape)
+for i in range(image.shape[0]):
+    for j in range(image.shape[1]):
+        if r[i, j] == 255 and g[i, j] < 223 and b[i, j] < 223:
+            image[i, j, :] = [220, 220, 220]
+        if r[i, j] < 223 and g[i, j] == 255 and b[i, j] < 223:
+            image[i, j, :] = [255, 255, 0]
+        if r[i, j] < 223 and g[i, j] < 223 and b[i, j] == 255:
+            image[i, j, :] = [0, 255, 255]
+        if r[i, j] < 223 and g[i, j] < 223 and b[i, j] < 223:
+            image[i, j, :] = [255, 0, 0]
+
+
+
+cv2.imshow("logo1", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+
+#
+# import cv2
+# import numpy as np
+# width, height = 600, 600
+# white_background = np.ones((height, width,3), dtype = np.uint8)*255
+# cv2.imwrite("White_backgroup.png",white_background)
+# img = white_background
+# (b, g, r) = cv2.split(white_background)
+# for i in range(white_background.shape[0]):
+#     for j in range(white_background.shape[1]):
+#         if b[i, j] == 255 and g[i, j] == 255 and r[i, j] == 255:
+#                  img[i, j] = [127, 127, 127]
+# pts1 = np.array([[225, 300], [300, 450], [225, 600], [150, 450]], np.int32)
+# pts2 = np.array([[300, 225], [450, 150], [600, 225], [450, 300]], np.int32)
+# pts3 = np.array([[300, 450], [450, 450], [450, 300]], np.int32)
+#
+# img1 = cv2.line(img, (300, 600), (600, 300), (255, 0, 0), 1)
+# img2 = cv2.rectangle(img1, (450, 450), (597, 597), (0, 0, 0), 4)
+# img3 = cv2.rectangle(img2, (150, 0), (300, 600), (200, 50, 200), 4)
+# img4 = cv2.rectangle(img3, (0, 150), (600, 300), (0, 0, 255), 4)
+# img5 = cv2.circle(img4, (225, 225), 75, (0, 255, 0), 4)
+# img6 = cv2.ellipse(img5, (450, 225), (150, 75), 0, 0, 360, (0, 0, 0), 4)
+# img7 = cv2.ellipse(img6, (225, 450), (75, 150), 0, 0, 360, (0, 0, 0), 4)
+#
+# img8 = cv2.polylines(img7, [pts1], True, (0, 0, 255), 2)
+# img9 = cv2.polylines(img8, [pts2], True, (0, 0, 255), 2)
+# img10 = cv2.polylines(img9, [pts3], True, (0, 255, 255), 4)
+# cv2.imwrite("Gray_img.png", img10)
+# cv2.imshow("White_Img", white_background)
+# cv2.waitKey(10)
